@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl,Validators,FormBuilder } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ export class LoginPage implements OnInit {
 
   formularioLogin: FormGroup;
 
-  constructor(public fb: FormBuilder) { 
+  constructor(public fb: FormBuilder,
+    public alertController: AlertController) { 
     
     this.formularioLogin = this.fb.group({
     'usuario': new FormControl("",Validators.required),
@@ -21,15 +23,25 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-  Ingresar(){
-    if(this.formularioLogin.valid){
-      const{usuario,password}=this.formularioLogin.value;
-
-      console.log('Usuario:',usuario);
-      console.log('password:',password);
-    }else{
-      console.log('datos invalidos');
+  async ingresar() {
+    var f = this.formularioLogin.value;
+    var usuarioString = localStorage.getItem('usuario');
+    if (usuarioString !== null) {
+      var usuario = JSON.parse(usuarioString);
+      if (usuario.usuario == f.usuario && usuario.password == f.password) {
+        console.log('Ingresado');
+        localStorage.setItem('ingresado', 'true');
+      } else {
+        const alert = await this.alertController.create({
+          header: 'Datos incorrectos',
+          message: 'Tienes que llenar todos los datos',
+          buttons: ['Aceptar'],
+        });
+        await alert.present();
+      }
+    } else {
+      // Manejo de caso cuando no se encuentra el valor en localStorage
     }
   }
+    }
 
-}

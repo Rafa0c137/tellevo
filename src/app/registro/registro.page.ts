@@ -28,14 +28,21 @@ export class RegistroPage implements OnInit {
 
     if(this.formularioRegistro.invalid){
       const alert = await this.alertController.create({
-        message: 'Por favor rellene todos los campos',
-        buttons: ['aceptar']
+        header: 'Datos incompletos',
+        message: 'Tienes que llenar todos los datos',
+        buttons: ['Aceptar']
       });
-      
+  
       await alert.present();
       return;
     }
-      }
 
+    var usuario = {
+      nombre: f.nombre,
+      password: f.password
     }
+
+    localStorage.setItem('usuario',JSON.stringify(usuario));
+  }
+  }
 
