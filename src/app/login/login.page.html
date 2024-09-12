@@ -1,36 +1,35 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title>Tellevo App</ion-title>
+    <ion-title>TellevoApp</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title position="floating">Iniciar sesion</ion-card-title>
-    </ion-card-header>  
-    
-    <ion-avatar style="margin: 0 auto">
-      <img position="floating" alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-    </ion-avatar>
-
-    <ion-card-content>
-    <form [formGroup]="formularioLogin">
-      <ion-item>
-        <ion-label position="floating">Usuario</ion-label>
-        <ion-input formControlName="nombre"></ion-input>
-      </ion-item>
-
-      <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input fromControlName="password" type="password"></ion-input>
-    </ion-item>
-    </form>
-    <br>
-    <ion-button color="success" (click)="ingresar()">Ingresar</ion-button>
-      <ion-button color="dark" [routerLink]="['/registro']">Registrar</ion-button>  
-  </ion-card-content>
-  </ion-card>
-
+  <div class="background-image">
+    <ion-card class="login-card">
+      <ion-card-header>
+        <ion-card-title class="custom-title">Iniciar Sesión</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="formularioLogin">
+          <ion-item>
+            <ion-label position="floating">Usuario</ion-label>
+            <ion-input formControlName="usuario"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input [type]="passwordType" formControlName="contraseña"></ion-input>
+            <ion-button fill="clear" size="small" slot="end" (click)="togglePasswordVisibility()">
+              <ion-icon [name]="passwordIcon"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </form>
+        <br>
+        <div class="center-buttons">
+          <ion-button class="custom-gray-button" (click)="Ingresar()">Ingresar</ion-button>
+          <ion-button class="custom-gray-button" [routerLink]="['/registro']">Registrar</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
