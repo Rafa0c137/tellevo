@@ -17,7 +17,7 @@
         <form [formGroup]="formularioRegistro" (keyup.enter)="guardar()">
           <ion-item>
             <ion-label position="floating">Usuario</ion-label>
-            <ion-input formControlName="Usuario"></ion-input>
+            <ion-input formControlName="usuario"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Contraseña</ion-label>
@@ -25,7 +25,7 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Confirmar contraseña</ion-label>
-            <ion-input formControlName="confirmacionPasswoord" type="password"></ion-input>
+            <ion-input formControlName="confirmacionPassword" type="password"></ion-input>
           </ion-item>
           <div class="button-container">
           <ion-button class="custom-gray-button" (click)="guardar()">Registrase</ion-button>

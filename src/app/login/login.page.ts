@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -10,37 +11,54 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class LoginPage implements OnInit {
 
   formularioLogin: FormGroup;
-  passwordType: string = 'password';  // Variable para controlar el tipo de input
-  passwordIcon: string = 'eye-off';   // Variable para controlar el icono
 
-  constructor(public fb: FormBuilder) { 
+  passwordType: string = 'password';  
+  passwordIcon: string = 'eye-off';  
+
+  constructor(
+    public fb: FormBuilder, 
+    public alertController: AlertController, 
+    private navCtrl: NavController  
+  ) { 
     this.formularioLogin = this.fb.group({
       'usuario': new FormControl("", Validators.required),
-      'contraseña': new FormControl("", Validators.required)  // El formControlName aquí es "contraseña"
+      'contraseña': new FormControl("", Validators.required)  
     });
   }
 
   ngOnInit() { }
 
-  Ingresar() {
-    if (this.formularioLogin.valid) {
-      const { usuario, contraseña } = this.formularioLogin.value;
+  async Ingresar() {
+    const f = this.formularioLogin.value;
+    const storedUsuario = localStorage.getItem('usuario');
+    const storedPassword = localStorage.getItem('password');
 
-      console.log('Usuario:', usuario);
-      console.log('Contraseña:', contraseña);
+    if (this.formularioLogin.valid && f.usuario === storedUsuario && f.contraseña === storedPassword) {
+      const alert = await this.alertController.create({
+        message: 'Inicio de sesión exitoso',
+        buttons: ['Aceptar']
+      });
+      await alert.present();
+
+      
+      this.navCtrl.navigateRoot('/home');
+      
     } else {
-      console.log('Datos inválidos');
+      const alert = await this.alertController.create({
+        message: 'Usuario o contraseña incorrectos',
+        buttons: ['Aceptar']
+      });
+      await alert.present();
     }
   }
 
-  // Nueva función para alternar la visibilidad de la contraseña
   togglePasswordVisibility() {
     if (this.passwordType === 'password') {
-      this.passwordType = 'text';      // Mostrar la contraseña
-      this.passwordIcon = 'eye';       // Cambiar el icono a "ojo abierto"
+      this.passwordType = 'text';      
+      this.passwordIcon = 'eye';       
     } else {
-      this.passwordType = 'password';  // Ocultar la contraseña
-      this.passwordIcon = 'eye-off';   // Cambiar el icono a "ojo cerrado"
+      this.passwordType = 'password';  
+      this.passwordIcon = 'eye-off';   
     }
   }
 
