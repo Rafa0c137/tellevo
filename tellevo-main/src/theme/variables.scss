@@ -1,0 +1,12 @@
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
+:root{
+    --button-width: 200px
+    
+}    
+
+ion-button{
+
+    width: var(--button-width);
+   
+}
