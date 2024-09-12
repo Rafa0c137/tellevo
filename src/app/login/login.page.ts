@@ -16,8 +16,8 @@ export class LoginPage implements OnInit {
     public alertController: AlertController) { 
     
     this.formularioLogin = this.fb.group({
-    'usuario': new FormControl("",Validators.required),
-    'password': new FormControl("",Validators.required)
+    'nombre': new FormControl("",Validators.required),
+    'contraseña': new FormControl("",Validators.required)
   })
   }
 
@@ -28,20 +28,18 @@ export class LoginPage implements OnInit {
     var usuarioString = localStorage.getItem('usuario');
     if (usuarioString !== null) {
       var usuario = JSON.parse(usuarioString);
-      if (usuario.usuario == f.usuario && usuario.password == f.password) {
+      if (usuario.nombre == f.nombre && usuario.contraseña == f.password) {
         console.log('Ingresado');
         localStorage.setItem('ingresado', 'true');
       } else {
         const alert = await this.alertController.create({
-          header: 'Datos incorrectos',
-          message: 'Tienes que llenar todos los datos',
+          header: 'Error',
+          message: 'El usuario o contraseña no son validos',
           buttons: ['Aceptar'],
         });
         await alert.present();
       }
     } else {
-      // Manejo de caso cuando no se encuentra el valor en localStorage
     }
   }
-    }
-
+}
