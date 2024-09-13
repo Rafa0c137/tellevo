@@ -36,5 +36,8 @@ export class HomePage implements OnInit {
       buttons: ['Aceptar']
     }).then(alert => alert.present());
   }
+  navigateTo(page: string) {
+    this.navCtrl.navigateForward(`/${page}`);
+  }
 
 }
