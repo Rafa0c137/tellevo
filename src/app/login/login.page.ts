@@ -34,8 +34,9 @@ export class LoginPage implements OnInit {
     const storedPassword = localStorage.getItem('password');
 
     if (this.formularioLogin.valid && f.usuario === storedUsuario && f.contraseña === storedPassword) {
+      localStorage.setItem('nombre', f.nombre);
       const alert = await this.alertController.create({
-        message: 'Inicio de sesión exitoso',
+        message: ('Bienvenido'),
         buttons: ['Aceptar']
       });
       await alert.present();
@@ -61,5 +62,6 @@ export class LoginPage implements OnInit {
       this.passwordIcon = 'eye-off';   
     }
   }
+
 
 }

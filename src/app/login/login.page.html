@@ -26,8 +26,9 @@
         </form>
         <br>
         <div class="center-buttons">
-          <ion-button class="custom-gray-button" (click)="Ingresar()">Ingresar</ion-button>
-          <ion-button class="custom-gray-button" [routerLink]="['/registro']">Registrar</ion-button>
+          <ion-button class="custom-primary-button" (click)="Ingresar()">Ingresar</ion-button>
+          <ion-button id="open-loading" class="custom-gray-button" [routerLink]="['/registro']">Registrar</ion-button>
+          <ion-loading trigger="open-loading" message="Cargando" duration="2000"></ion-loading>
         </div>
       </ion-card-content>
     </ion-card>
