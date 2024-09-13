@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
     if (this.formularioLogin.valid && f.usuario === storedUsuario && f.contraseña === storedPassword) {
       localStorage.setItem('nombre', f.nombre);
       const alert = await this.alertController.create({
-        message: ('Bienvenido'),
+        message: ('Bienvenido ' + f.usuario +' !'),
         buttons: ['Aceptar']
       });
       await alert.present();

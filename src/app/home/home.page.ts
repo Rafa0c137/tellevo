@@ -9,6 +9,9 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 
 export class HomePage implements OnInit {
+  
+  
+  
 
   formularioLogin: FormGroup;
 
@@ -26,7 +29,8 @@ export class HomePage implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+  }
 
 
   logout() {
