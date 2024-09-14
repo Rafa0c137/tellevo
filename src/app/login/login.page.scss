@@ -100,3 +100,24 @@ ion-card-header{
 
 
   }
+  .avatar-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 10vh; 
+    overflow: hidden;
+  }
+  
+  ion-avatar {
+    animation: slide 2s linear infinite;
+  }
+  
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(100% - 80px)); 
+    }
+  }
+  

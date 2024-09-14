@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController,AnimationController,IonCard } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +27,8 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() { }
+
+  
 
   async Ingresar() {
     const f = this.formularioLogin.value;
