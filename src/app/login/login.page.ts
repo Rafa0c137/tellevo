@@ -1,6 +1,8 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AlertController, NavController,AnimationController,IonCard } from '@ionic/angular';
+import { Filesystem } from '@capacitor/filesystem';
+import { Geolocation} from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +28,13 @@ export class LoginPage implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.requestPermissions();
+  }
+  async requestPermissions(){
+    const locPermission = await Geolocation.requestPermissions();
+    console.log('Permitir ubicacion')
+  }
 
   
 
@@ -63,7 +71,6 @@ export class LoginPage implements OnInit {
       this.passwordType = 'password';  
       this.passwordIcon = 'eye-off';   
     }
+
   }
-
-
 }
