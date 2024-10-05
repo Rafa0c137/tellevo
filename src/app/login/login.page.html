@@ -1,26 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title>TellevoApp</ion-title>
+    <ion-title>TeLlevoApp</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  
   <div class="background-image">
     <ion-card class="login-card">
-      <ion-card-header>
-
-        <div class="avatar-container">
+      <ion-card-header> <div class="avatar-container">
           <ion-avatar>
-            <img alt="avatar"
-              src="/assets/images/avatar.jpg" />
+            <img alt="avatar" src="/assets/images/avatar.jpg" />
           </ion-avatar>
-        </div>
-
-      </ion-card-header>     
-<ion-card-content>
-        
-        <form [formGroup]="formularioLogin">
+        </div> </ion-card-header>     
+      <ion-card-content> <form [formGroup]="formularioLogin">
           <ion-item>
             <ion-label position="floating">Usuario</ion-label>
             <ion-input formControlName="usuario"></ion-input>
@@ -33,6 +24,12 @@
             </ion-button>
           </ion-item>
         </form>
+        <ion-text>
+          <ion-button fill="clear" class="restablecer" [routerLink]="['/restablecer']">
+            Restablecer Contraseña
+          </ion-button>
+        </ion-text>
+
         <br>
         <div class="center-buttons">
           <ion-button class="custom-primary-button" (click)="Ingresar()">Ingresar</ion-button>

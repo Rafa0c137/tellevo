@@ -40,20 +40,30 @@ export class LoginPage implements OnInit {
 
   async Ingresar() {
     const f = this.formularioLogin.value;
-    const storedUsuario = localStorage.getItem('usuario');
-    const storedPassword = localStorage.getItem('password');
-
-    if (this.formularioLogin.valid && f.usuario === storedUsuario && f.contraseña === storedPassword) {
-      localStorage.setItem('nombre', f.nombre);
+  
+    
+    if (!f.usuario || !f.contraseña) {
       const alert = await this.alertController.create({
-        message: ('Bienvenido ' + f.usuario +' !'),
+        message: 'Por favor, ingrese su usuario y contraseña',
         buttons: ['Aceptar']
       });
       await alert.present();
-
+      return; 
+    }
+  
+    const storedUsuario = localStorage.getItem('usuario');
+    const storedPassword = localStorage.getItem('password');
+  
+  
+    if (this.formularioLogin.valid && f.usuario === storedUsuario && f.contraseña === storedPassword) {
+      localStorage.setItem('nombre', f.nombre);
+      const alert = await this.alertController.create({
+        message: `Bienvenido ${f.usuario} !`,
+        buttons: ['Aceptar']
+      });
+      await alert.present();
       
       this.navCtrl.navigateRoot('/home');
-      
     } else {
       const alert = await this.alertController.create({
         message: 'Usuario o contraseña incorrectos',
@@ -62,6 +72,7 @@ export class LoginPage implements OnInit {
       await alert.present();
     }
   }
+  
 
   togglePasswordVisibility() {
     if (this.passwordType === 'password') {

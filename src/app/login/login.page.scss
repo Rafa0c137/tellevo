@@ -120,4 +120,15 @@ ion-card-header{
       transform: translateX(calc(100% - 80px)); 
     }
   }
+
+.restablecer {
+
+  font-size: 0.6rem;
+  margin: 0;
+  text-align: left;
+  text-decoration: underline;
+  --color: var(--ion-color-primary);
+  --padding-start:0;
+  --padding-end:0;
+}
   

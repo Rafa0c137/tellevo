@@ -1,0 +1,97 @@
+ion-header{
+
+    text-align: center;
+  
+  }
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/inicioimg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    z-index: -1; 
+  }
+  ion-content {
+  
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; 
+  }
+  
+  .button-container ion-button {
+    flex: 1; 
+    margin: 0 5px; 
+  }
+  .ion-card-title {
+
+    color:#000000;
+    text-align: center;
+
+  }
+  .back-button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+  }
+  .login-card{
+  
+    max-width: 400px;
+    --background: white;
+    padding: 45px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+  ion-item {
+    --background: white;
+    --color: black; 
+    --placeholder-color: gray; 
+    border-radius: 8px;
+  }
+  .custom-gray-button {
+    --background: #2c2a2a88; 
+    --color: #ffffff; 
+  }
+  .background-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }
+  ion-button.eye-button {
+    position: absolute;
+    right: 0;             
+    top: 90%;              
+    transform: translateY(-10%); 
+    font-size: 1.5rem;     
+    --padding-start: 0px;  
+    --padding-end: 0px;    
+  }
+  ion-item {
+    display: flex;
+    align-items: center; 
+  }
+  
+  ion-input {
+    flex: 1; 
+  }
+  
+  ion-icon {
+    font-size: 1.5rem;    
+  }
+  ion-card-title.custom-title {
+
+    color:#000000;
+
+  }
