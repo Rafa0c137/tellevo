@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Perfil del Estudiante</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="background-image">
+    <ion-card class="form-card">
+      <ion-card-header>
+        <ion-card-title>Perfil del Estudiante</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form>
+          <ion-item>
+            <ion-label position="stacked">Nombre</ion-label>
+            <ion-input type="text" [value]="userName" readonly></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Correo Electrónico</ion-label>
+            <ion-input type="email" [(ngModel)]="email" [readonly]="!isEditable" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Fecha de Nacimiento</ion-label>
+            <ion-input type="date" [(ngModel)]="birthDate" [readonly]="!isEditable" required></ion-input>
+          </ion-item>
+
+          <div class="button-group">
+            <ion-button expand="full" (click)="volver()">Volver</ion-button>
+            <ion-button expand="full" (click)="guardarCambios()" [disabled]="!isEditable">Guardar Cambios</ion-button>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

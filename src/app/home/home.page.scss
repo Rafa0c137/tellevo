@@ -52,3 +52,12 @@ ion-content {
   background-position: center;
   z-index: -1; 
 }
+.separar-menu {
+  flex-grow: 1; }
+
+ion-footer {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

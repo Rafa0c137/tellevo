@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title>TeLlevoApp</ion-title>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -29,12 +29,11 @@
             Restablecer Contraseña
           </ion-button>
         </ion-text>
-
         <br>
         <div class="center-buttons">
           <ion-button class="custom-primary-button" (click)="Ingresar()">Ingresar</ion-button>
           <ion-button id="open-loading" class="custom-gray-button" [routerLink]="['/registro']">Registrar</ion-button>
-          <ion-loading trigger="open-loading" message="Cargando" duration="2000"></ion-loading>
+          <ion-loading trigger="open-loading" message="Cargando" duration="1200"></ion-loading>
         </div>
       </ion-card-content>
     </ion-card>
