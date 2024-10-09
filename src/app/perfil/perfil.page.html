@@ -14,23 +14,10 @@
       <ion-card-content>
         <form>
           <ion-item>
-            <ion-label position="stacked">Nombre</ion-label>
+            <ion-label position="stacked">Nombre de Usuario</ion-label>
             <ion-input type="text" [value]="userName" readonly></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="stacked">Correo Electrónico</ion-label>
-            <ion-input type="email" [(ngModel)]="email" [readonly]="!isEditable" required></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="stacked">Fecha de Nacimiento</ion-label>
-            <ion-input type="date" [(ngModel)]="birthDate" [readonly]="!isEditable" required></ion-input>
-          </ion-item>
-
-          <div class="button-group">
+          </ion-item> <div class="button-group">
             <ion-button expand="full" (click)="volver()">Volver</ion-button>
-            <ion-button expand="full" (click)="guardarCambios()" [disabled]="!isEditable">Guardar Cambios</ion-button>
           </div>
         </form>
       </ion-card-content>

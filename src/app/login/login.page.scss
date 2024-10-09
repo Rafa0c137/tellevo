@@ -51,8 +51,13 @@ ion-card-header{
     border-radius: 8px;
   }
   .custom-gray-button {
-    --background: #2c2a2a88; 
+    --background: #000000bb; 
     --color: #ffffff; 
+  }
+  .custom-primary-button{
+    --background: #000000bb; 
+  --color: #ffffff;
+    
   }
   .background-image {
     display: flex;
@@ -68,6 +73,7 @@ ion-card-header{
     font-size: 1.5rem;     
     --padding-start: 0px;  
     --padding-end: 0px;    
+    
   }
   ion-item {
     display: flex;

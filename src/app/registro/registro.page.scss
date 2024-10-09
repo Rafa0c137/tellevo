@@ -92,16 +92,24 @@ ion-card-header{
     text-align: center;
   }
 
-  ion-button{
-    width: var(--buton-width);
-    height: 20px;
-    display: inline-block;
-    margin: 0 10px;
+.custom-gray-button {
+
+  --background: #000000bb; 
+  --color: #ffffff; 
 
 }
-ion-button {
-    display: block;
-    margin: 20px auto 0 auto; 
-    --background: #343435; 
-    --border-radius: 5px; 
+.custom-primary-button{
+
+  --background: #000000bb; 
+  --color: #ffffff; 
+}
+ion-button{
+  width: var(--buton-width);
+  height: 50px;
+  display: inline-block;
+  margin: 20 20px;
+justify-content: center;
+gap:10px;
+min-width: 130px;
+
 }

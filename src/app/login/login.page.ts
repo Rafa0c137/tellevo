@@ -43,15 +43,17 @@ export class LoginPage implements OnInit {
     const storedPassword = localStorage.getItem('password');
   
     if (this.formularioLogin.valid && f.usuario === storedUsuario && f.contraseña === storedPassword) {
-     
-      localStorage.setItem('userName', f.usuario);
+      
+      localStorage.setItem('nombre', f.usuario);
   
       const alert = await this.alertController.create({
         message: 'Bienvenido ' + f.usuario + '!',
-        buttons: ['Aceptar']
       });
       await alert.present();
-  
+      setTimeout(() => {
+        alert.dismiss();
+      }, 1000);
+      
       this.navCtrl.navigateRoot('/home');
     } else {
       const alert = await this.alertController.create({
@@ -61,6 +63,7 @@ export class LoginPage implements OnInit {
       await alert.present();
     }
   }
+  
   
   
 togglePasswordVisibility() {

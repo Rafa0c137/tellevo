@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
     this.userImage = await this.storage.get('userImage');
   }
 
-  async onFileSelected(event: any) {
+  /*async onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file && file.type === 'image/jpeg') {
       const reader = new FileReader();
@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
     } else {
       alert('Por favor, selecciona una imagen en formato JPG.');
     }
-  }
+  }*/
 
   logout() {
     this.navCtrl.navigateRoot('/login');
