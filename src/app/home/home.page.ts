@@ -35,25 +35,11 @@ export class HomePage implements OnInit {
     this.userImage = await this.storage.get('userImage');
   }
 
-  /*async onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file && file.type === 'image/jpeg') {
-      const reader = new FileReader();
-      reader.onload = async (e: any) => {
-        this.userImage = e.target.result;
-        await this.storage.set('userImage', this.userImage); 
-      };
-      reader.readAsDataURL(file);
-    } else {
-      alert('Por favor, selecciona una imagen en formato JPG.');
-    }
-  }*/
 
   logout() {
     this.navCtrl.navigateRoot('/login');
     this.alertController.create({
-      message: 'Sesion cerrada exitosamente',
-      buttons: ['Aceptar']
+      message: 'Sesion cerrada',
     }).then(alert => alert.present());
   }
 

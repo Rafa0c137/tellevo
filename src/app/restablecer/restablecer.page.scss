@@ -34,7 +34,7 @@ ion-header{
     flex: 1; 
     margin: 0 5px; 
   }
-  .ion-card-title {
+ion-card-header {
 
     color:#000000;
     text-align: center;
@@ -48,20 +48,16 @@ ion-header{
   .login-card{
   
     max-width: 400px;
-    --background: white;
+    --background: rgb(255, 255, 255);
     padding: 45px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   }
   ion-item {
-    --background: white;
+    --background: rgb(255, 255, 255);
     --color: black; 
-    --placeholder-color: gray; 
+    --placeholder-color: rgb(2, 2, 2); 
     border-radius: 8px;
-  }
-  .custom-gray-button {
-    --background: #2c2a2a88; 
-    --color: #ffffff; 
   }
   .background-image {
     display: flex;
@@ -90,7 +86,16 @@ ion-header{
   ion-icon {
     font-size: 1.5rem;    
   }
-  ion-card-title.custom-title {
+  .custom-gray-button {
+    --background: #000000bb; 
+    --color: #ffffff; 
+  }
+  .custom-primary-button{
+    --background: #000000bb; 
+  --color: #ffffff;
+    
+  }
+.restablecer {
 
     color:#000000;
 

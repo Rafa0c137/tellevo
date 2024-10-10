@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AlertController} from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Geolocation } from '@capacitor/geolocation';
 import { NavController } from '@ionic/angular';
-import { AnimationController,IonCard } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-login',
@@ -27,8 +25,7 @@ export class LoginPage implements OnInit {
       'contraseña': new FormControl("", Validators.required)  
     });
   }
-
-  ngOnInit() { 
+ngOnInit() { 
     this.requestPermissions();
   }
 
@@ -39,21 +36,25 @@ export class LoginPage implements OnInit {
 
   async Ingresar() {
     const f = this.formularioLogin.value;
-    const storedUsuario = localStorage.getItem('usuario');
-    const storedPassword = localStorage.getItem('password');
-  
-    if (this.formularioLogin.valid && f.usuario === storedUsuario && f.contraseña === storedPassword) {
-      
-      localStorage.setItem('nombre', f.usuario);
-  
+    
+    if (!f.usuario || !f.contraseña) {
       const alert = await this.alertController.create({
+        message: 'Por favor, complete todos los campos.',
+        buttons: ['Aceptar']
+      });
+      await alert.present();
+      return;
+    }const storedUsuario = localStorage.getItem('usuario');
+    const storedPassword = localStorage.getItem('password');
+   if (f.usuario === storedUsuario && f.contraseña === storedPassword) {
+      localStorage.setItem('nombre', f.usuario);
+  const alert = await this.alertController.create({
         message: 'Bienvenido ' + f.usuario + '!',
       });
       await alert.present();
       setTimeout(() => {
         alert.dismiss();
       }, 1000);
-      
       this.navCtrl.navigateRoot('/home');
     } else {
       const alert = await this.alertController.create({
@@ -63,10 +64,8 @@ export class LoginPage implements OnInit {
       await alert.present();
     }
   }
-  
-  
-  
-togglePasswordVisibility() {
+
+  togglePasswordVisibility() {
     if (this.passwordType === 'password') {
       this.passwordType = 'text';      
       this.passwordIcon = 'eye';       
