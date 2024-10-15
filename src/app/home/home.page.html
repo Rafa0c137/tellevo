@@ -1,40 +1,62 @@
 <ion-menu side="start" menuId="first" contentId="main-content" maxEdgeStart="200">
   <ion-header>
     <ion-toolbar color="dark">
-      <ion-title>Datos</ion-title>
+      <ion-title style="color: white">Datos</ion-title>
     </ion-toolbar>
   </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item (click)="navigateTo('perfil')">
-      <ion-icon name="person-circle-outline" slot="start"></ion-icon>
-      Perfil
-    </ion-item>
-  </ion-list>
-  <div class="separar-menu"></div>
-
-  <ion-footer>
+  <ion-content>
     <ion-list>
-      <ion-item (click)="logout()">
-        <ion-icon name="log-out-outline" slot="start"></ion-icon>
-        Cerrar Sesión
+      <ion-item (click)="navigateTo('perfil')">
+        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+        Perfil
       </ion-item>
     </ion-list>
-  </ion-footer>
-</ion-content>
+    <div class="separar-menu"></div>
+
+    <ion-footer>
+      <ion-list>
+        <ion-item (click)="logout()">
+          <ion-icon name="log-out-outline" slot="start"></ion-icon>
+          Cerrar Sesión
+        </ion-item>
+      </ion-list>
+    </ion-footer>
+  </ion-content>
 </ion-menu>
+
 <ion-header [translucent]="true">
-<ion-toolbar color="dark">
-  <ion-buttons slot="start">
-    <ion-menu-button autoHide="false"></ion-menu-button> 
-  </ion-buttons>
-  <ion-title>
-    Inicio
-  </ion-title>
-</ion-toolbar>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Inicio
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
-<ion-content id="main-content" id="main-content" class="center-content">
-  <div class="background-image">
+
+<ion-content id="main-content" class="center-content">
+  <div class="background-image"></div>
+<div class="card-container">
+    <ion-card class="login-card">
+      <ion-card-header>
+        <div class="avatar-container">
+          <ion-avatar>
+            <img alt="avatar" src="/assets/images/avatar.jpg" />
+          </ion-avatar>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-card-title style="color: black;">Cuentas con movilización propia?</ion-card-title>
+       <div class="center-buttons">
+          <ion-button expand="full" (click)="handleResponse(true)">Sí</ion-button>
+          <ion-button expand="full" (click)="handleResponse(false)">No</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
+
+
+

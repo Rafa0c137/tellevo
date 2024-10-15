@@ -35,6 +35,14 @@ export class HomePage implements OnInit {
     this.userImage = await this.storage.get('userImage');
   }
 
+  async handleResponse(hasTransport: boolean) {
+    await this.storage.set('hasTransport', hasTransport);
+    if (hasTransport) {
+      this.navCtrl.navigateForward('/programar-viaje');
+    } else {
+      this.navCtrl.navigateForward('/buscar-transporte');
+    }
+  }
 
   logout() {
     this.navCtrl.navigateRoot('/login');
