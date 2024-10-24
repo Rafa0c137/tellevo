@@ -27,6 +27,22 @@ const routes: Routes = [
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilPageModule)
   },
+  {
+    path: 'conmovilizacion',
+    loadChildren: () => import('./conmovilizacion/conmovilizacion.module').then( m => m.ConmovilizacionPageModule)
+  },
+  {
+    path: 'sinmovilizacion',
+    loadChildren: () => import('./sinmovilizacion/sinmovilizacion.module').then( m => m.SinmovilizacionPageModule)
+  },
+  {
+    path: 'conmovilizacion',
+    loadChildren: () => import('./conmovilizacion/conmovilizacion.module').then(m => m.ConmovilizacionPageModule)
+  },
+  {
+    path: 'sinmovilizacion',
+    loadChildren: () => import('./sinmovilizacion/sinmovilizacion.module').then(m => m.SinmovilizacionPageModule)
+  },
 ];
 
 @NgModule({

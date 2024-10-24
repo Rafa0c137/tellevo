@@ -1,7 +1,7 @@
-<ion-menu side="start" menuId="first" contentId="main-content" maxEdgeStart="200">
+<ion-menu side="start" menuId="first" contentId="main-content">
   <ion-header>
     <ion-toolbar color="dark">
-      <ion-title style="color: white">Datos</ion-title>
+      <ion-title style="color: rgb(0, 0, 0)">Datos</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -13,8 +13,7 @@
       </ion-item>
     </ion-list>
     <div class="separar-menu"></div>
-
-    <ion-footer>
+  <ion-footer>
       <ion-list>
         <ion-item (click)="logout()">
           <ion-icon name="log-out-outline" slot="start"></ion-icon>
@@ -24,7 +23,6 @@
     </ion-footer>
   </ion-content>
 </ion-menu>
-
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
@@ -35,28 +33,19 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content id="main-content" class="center-content">
   <div class="background-image"></div>
-<div class="card-container">
+  <div class="card-container">
     <ion-card class="login-card">
       <ion-card-header>
-        <div class="avatar-container">
-          <ion-avatar>
-            <img alt="avatar" src="/assets/images/avatar.jpg" />
-          </ion-avatar>
-        </div>
+        <ion-card-title class="texto" style="color: black;">¿Cuentas con movilización?</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-card-title style="color: black;">Cuentas con movilización propia?</ion-card-title>
-       <div class="center-buttons">
+        <div class="centrado">
           <ion-button expand="full" (click)="handleResponse(true)">Sí</ion-button>
-          <ion-button expand="full" (click)="handleResponse(false)">No</ion-button>
+          <ion-button expand="full" (click)="handleResponse(true)">No</ion-button>
         </div>
       </ion-card-content>
     </ion-card>
   </div>
 </ion-content>
-
-
-
