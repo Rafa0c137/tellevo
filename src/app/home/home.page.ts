@@ -22,5 +22,7 @@ export class HomePage {
   }
 
   logout() {
+    localStorage.removeItem('token'); 
+    this.navCtrl.navigateRoot('/login'); // Redirige al login
   }
 }

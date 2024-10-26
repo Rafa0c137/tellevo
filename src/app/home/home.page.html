@@ -7,18 +7,15 @@
 
   <ion-content>
     <ion-list>
-      <ion-item (click)="navigateTo('perfil')">
+      <ion-button (click)="navigateTo('perfil')">
         <ion-icon name="person-circle-outline" slot="start"></ion-icon>
         Perfil
-      </ion-item>
+      </ion-button>
     </ion-list>
     <div class="separar-menu"></div>
   <ion-footer>
       <ion-list>
-        <ion-item (click)="logout()">
-          <ion-icon name="log-out-outline" slot="start"></ion-icon>
-          Cerrar Sesión
-        </ion-item>
+        <ion-button (click)="logout()">Logout</ion-button>
       </ion-list>
     </ion-footer>
   </ion-content>
