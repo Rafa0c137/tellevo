@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from '../guards/auth.guard';
+import { AuthService } from './services/auth.service';
+
 const routes: Routes = [
   {
     path: '',
@@ -21,28 +24,21 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule), canActivate:[AuthGuard]
   },
   {
     path: 'perfil',
-    loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilPageModule)
+    loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilPageModule),canActivate:[AuthGuard]
   },
   {
     path: 'conmovilizacion',
-    loadChildren: () => import('./conmovilizacion/conmovilizacion.module').then( m => m.ConmovilizacionPageModule)
+    loadChildren: () => import('./conmovilizacion/conmovilizacion.module').then( m => m.ConmovilizacionPageModule),canActivate:[AuthGuard]
   },
   {
     path: 'sinmovilizacion',
-    loadChildren: () => import('./sinmovilizacion/sinmovilizacion.module').then( m => m.SinmovilizacionPageModule)
+    loadChildren: () => import('./sinmovilizacion/sinmovilizacion.module').then( m => m.SinmovilizacionPageModule),canActivate:[AuthGuard]
   },
-  {
-    path: 'conmovilizacion',
-    loadChildren: () => import('./conmovilizacion/conmovilizacion.module').then(m => m.ConmovilizacionPageModule)
-  },
-  {
-    path: 'sinmovilizacion',
-    loadChildren: () => import('./sinmovilizacion/sinmovilizacion.module').then(m => m.SinmovilizacionPageModule)
-  },
+
 ];
 
 @NgModule({
