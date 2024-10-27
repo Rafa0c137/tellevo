@@ -13,24 +13,27 @@
       </ion-button>
     </ion-list>
     <div class="separar-menu"></div>
-  <ion-footer>
+    <ion-footer>
       <ion-list>
         <ion-button (click)="logout()">Logout</ion-button>
       </ion-list>
     </ion-footer>
   </ion-content>
 </ion-menu>
+
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Inicio
-    </ion-title>
+    <ion-title>Inicio</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content id="main-content" class="center-content">
+  <!-- Map container -->
+  <div id="map" style="height: 100vh;"></div>
+
   <div class="background-image"></div>
   <div class="card-container">
     <ion-card class="login-card">
