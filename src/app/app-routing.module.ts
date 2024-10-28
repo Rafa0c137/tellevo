@@ -24,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule), canActivate:[AuthGuard]
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),canActivate: [AuthGuard] 
+
   },
   {
     path: 'perfil',
@@ -48,3 +49,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

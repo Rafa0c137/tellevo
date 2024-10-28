@@ -22,14 +22,7 @@
       "es2018", 
       "dom"
     ],
-    "useDefineForClassFields": false,
-    "typeRoots": [
-      "node_modules/@types",
-      "src/types.d.ts"
-    ],
-    "types": [
-      "google.maps"
-    ]
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
