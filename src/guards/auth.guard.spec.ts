@@ -9,11 +9,11 @@ describe('AuthGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthGuard] // Provee el AuthGuard
+      providers: [AuthGuard] 
     });
 
-    guard = TestBed.inject(AuthGuard); // Inyecta el AuthGuard
-    router = TestBed.inject(Router); // Inyecta el Router
+    guard = TestBed.inject(AuthGuard); 
+    router = TestBed.inject(Router); 
   });
 
   it('should be created', () => {
@@ -23,22 +23,22 @@ describe('AuthGuard', () => {
   it('should allow access to the route if user is logged in', () => {
     spyOn(localStorage, 'getItem').and.callFake((key) => {
       if (key === 'nombre') {
-        return 'user'; // Simula un usuario autenticado
+        return 'user';
       }
       return null;
     });
 
     const result = guard.canActivate(null, null);
-    expect(result).toBeTrue(); // Verifica que el acceso se permite
+    expect(result).toBeTrue();
   });
 
   it('should deny access to the route if user is not logged in', () => {
-    spyOn(localStorage, 'getItem').and.returnValue(null); // Simula un usuario no autenticado
+    spyOn(localStorage, 'getItem').and.returnValue(null); 
 
-    const navigateSpy = spyOn(router, 'navigate'); // Espía la función de navegación
+    const navigateSpy = spyOn(router, 'navigate');
 
     const result = guard.canActivate(null, null);
-    expect(result).toBeFalse(); // Verifica que el acceso se deniega
-    expect(navigateSpy).toHaveBeenCalledWith(['/login']); // Verifica que redirige a /login
+    expect(result).toBeFalse(); 
+    expect(navigateSpy).toHaveBeenCalledWith(['/login']); 
   });
 });
