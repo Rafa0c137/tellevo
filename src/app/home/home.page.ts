@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { MapboxServiceService, feature } from './mapbox-service.service';
+import * as mapboxgl from 'mapbox-gl';
+
 
 @Component({
   selector: 'app-home',
@@ -8,49 +9,18 @@ import { MapboxServiceService, feature } from './mapbox-service.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  addresses: string[] = [];
-  selectedAddress: string | null = null;
+  map: mapboxgl.Map;
+  constructor(private navCtrl: NavController) {}
+  ngOnInit() {
+    this.map = new mapboxgl.Map({
+      container: 'map', // El ID del contenedor HTML
+      style: 'mapbox://styles/mapbox/streets-v11', // El estilo del mapa
+      center: [-74.5, 40], // Coordenadas de centro
+      zoom: 9
+    });
 
-  constructor(
-    private navCtrl: NavController,
-    private mapboxService: MapboxServiceService
-  ) {}
 
-  // Método para manejar la búsqueda en el ion-searchbar
-  search(event: any) {
-    const searchTerm = event.target.value.toLowerCase();
-    if (searchTerm && searchTerm.length > 0) {
-      this.mapboxService.search_word(searchTerm).subscribe((features: feature[]) => {
-        this.addresses = features.map(feat => feat.place_name);
-      });
-    } else {
-      this.addresses = [];
-    }
+
   }
 
-  // Método para seleccionar una dirección de la lista de resultados
-  onSelect(address: string) {
-    this.selectedAddress = address;
-    this.addresses = [];
-  }
-
-  // Método para manejar la respuesta de movilización
-  handleResponse(hasTransport: boolean) {
-    if (hasTransport) {
-      this.navCtrl.navigateForward('/conmovilizacion');
-    } else {
-      this.navCtrl.navigateForward('/sinmovilizacion');
-    }
-  }
-
-  // Método para navegación a otras páginas
-  navigateTo(page: string) {
-    this.navCtrl.navigateForward(`/${page}`);
-  }
-
-  // Método para cerrar sesión
-  logout() {
-    localStorage.removeItem('token'); 
-    this.navCtrl.navigateRoot('/login');
-  }
 }

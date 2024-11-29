@@ -4,6 +4,7 @@
       <ion-title style="color: rgb(0, 0, 0)">Datos</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <ion-content>
     <ion-list>
       <ion-button (click)="navigateTo('perfil')">
@@ -12,23 +13,23 @@
       </ion-button>
     </ion-list>
     <div class="separar-menu"></div>
-    <ion-footer>
+  <ion-footer>
       <ion-list>
-        <ion-button (click)="logout()">Logout</ion-button>
+        <ion-button (click)="logout()">Cerrar Sesion </ion-button>
       </ion-list>
     </ion-footer>
   </ion-content>
 </ion-menu>
-
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Inicio</ion-title>
+    <ion-title>
+      Inicio
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content id="main-content" class="center-content">
   <div class="background-image"></div>
   <div class="card-container">
@@ -37,26 +38,13 @@
         <ion-card-title class="texto" style="color: black;">¿Cuentas con movilización?</ion-card-title>
       </ion-card-header>
       <ion-card-content>
+        <div id="map" style="width: 100%; height: 100%"></div>
+
         <div class="centrado">
           <ion-button expand="full" (click)="handleResponse(true)">Sí</ion-button>
-          <ion-button expand="full" (click)="handleResponse(false)">No</ion-button>
+          <ion-button expand="full" (click)="handleResponse(true)">No</ion-button>
         </div>
       </ion-card-content>
     </ion-card>
   </div>
-  <ion-grid>
-    <ion-row>
-      <ion-col offset="2" size="8">
-        <ion-searchbar (ionInput)="search($event)" placeholder="Busca una dirección"></ion-searchbar>
-        <div *ngIf="addresses.length > 0" style="position: absolute; width: 100%; z-index: 999;">
-          <ion-list lines="none">
-            <ion-item button *ngFor="let address of addresses" (click)="onSelect(address)">
-              <ion-icon name="pin" slot="start"></ion-icon>
-              {{ address }}
-            </ion-item>
-          </ion-list>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 </ion-content>
