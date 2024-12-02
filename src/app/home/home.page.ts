@@ -16,8 +16,7 @@ export class HomePage implements OnInit, AfterViewInit {
   origin: mapboxgl.LngLat | undefined;
   destination: mapboxgl.LngLat | undefined;
   addresses: any[] = [];
-  searchTimeout: any;
-  mapboxToken: string = 'pk.eyJ1IjoiY3Jpc3RtIiwiYSI6ImNtNDI2YnJ6MzA2c3YyaXB0cnp0d2F4cTgifQ.W-CR0JFgvImO5GfvbecLCg';
+  mapboxToken: string = 'pk.eyJ1IjoicmFmYTBjMTM2IiwiYSI6ImNtM3lzYmNvMjF2MDMyaXEyZ3BwOGRuYzcifQ.7JDWERlfmrFp-EPdRhyUVg'; // Reemplaza con tu token válido
   startTripVisible: boolean = false;
 
   constructor(private platform: Platform, private router: Router) {}
@@ -29,14 +28,14 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   loadMap() {
-    const initialLng = -70.6483;
+    const initialLng = -70.6483; // Coordenadas iniciales
     const initialLat = -33.4489;
 
     if (this.platform.is('hybrid')) {
       Geolocation.getCurrentPosition().then((position) => {
         this.initializeMap(position.coords.longitude, position.coords.latitude);
-      }).catch(error => {
-        console.error("Error:", error);
+      }).catch((error) => {
+        console.error('Error obteniendo ubicación:', error);
         this.initializeMap(initialLng, initialLat);
       });
     } else {
@@ -45,14 +44,12 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   initializeMap(lng: number, lat: number) {
-    localStorage.setItem('origin', JSON.stringify({ lng, lat }));
-
     this.map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/cristm/cm46i9ggm005601rzf6qn42ea',
+      style: 'mapbox://styles/mapbox/streets-v11',
       center: [lng, lat],
       zoom: 14,
-      accessToken: this.mapboxToken
+      accessToken: this.mapboxToken,
     });
 
     this.userMarker = new mapboxgl.Marker({ color: 'blue' })
@@ -70,66 +67,44 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   setOrigin(coordinates: mapboxgl.LngLat) {
-    localStorage.setItem('origin', JSON.stringify(coordinates));
     this.origin = coordinates;
     if (this.userMarker) {
       this.userMarker.setLngLat(coordinates);
     }
-    this.reverseGeocode(coordinates, 'origin');
+
     this.checkForStartButton();
-    this.getRoute();  
+    this.getRoute();
   }
 
   setDestination(coordinates: mapboxgl.LngLat) {
-    localStorage.setItem('destination', JSON.stringify(coordinates));
+    this.destination = coordinates;
     if (this.carMarker) {
       this.carMarker.setLngLat(coordinates);
-    } else {
-      if (this.map) {
-        this.carMarker = new mapboxgl.Marker({ color: 'red' })
-          .setLngLat(coordinates)
-          .addTo(this.map);
-      } else {
-        console.error('El mapa no está disponible');
-      }
+    } else if (this.map) {
+      this.carMarker = new mapboxgl.Marker({ color: 'red' })
+        .setLngLat(coordinates)
+        .addTo(this.map);
     }
-    this.destination = coordinates;
-    this.reverseGeocode(coordinates, 'destination');
-    this.getRoute();  
-    this.checkForStartButton();
-  }
 
-  reverseGeocode(coordinates: mapboxgl.LngLat, type: string) {
-    clearTimeout(this.searchTimeout);
-    this.searchTimeout = setTimeout(() => {
-      fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.lng},${coordinates.lat}.json?access_token=${this.mapboxToken}`)
-        .then(response => response.json())
-        .then(data => {
-          const address = data.features[0]?.place_name;
-          if (type === 'origin') {
-            const originSearch = document.querySelector('ion-searchbar[placeholder="Ingresa la dirección de origen"]') as HTMLIonSearchbarElement;
-            if (originSearch) {
-              originSearch.value = address;
-            }
-          }
-          if (type === 'destination') {
-            const destinationSearch = document.querySelector('ion-searchbar[placeholder="Ingresa el destino"]') as HTMLIonSearchbarElement;
-            if (destinationSearch) {
-              destinationSearch.value = address;
-            }
-          }
-        });
-    }, 500);
+    this.checkForStartButton();
+    this.getRoute();
   }
 
   getRoute() {
     if (this.origin && this.destination) {
-      fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${this.origin.lng},${this.origin.lat};${this.destination.lng},${this.destination.lat}?steps=true&access_token=${this.mapboxToken}`)
-        .then(response => response.json())
-        .then(data => {
-          const route = data.routes[0].geometry.coordinates;
-          this.updateRoute(route);
-        });
+      const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${this.origin.lng},${this.origin.lat};${this.destination.lng},${this.destination.lat}?geometries=geojson&access_token=${this.mapboxToken}`;
+      
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          const route = data.routes[0]?.geometry.coordinates;
+          if (route) {
+            this.updateRoute(route);
+          } else {
+            console.error('No se encontró una ruta válida.');
+          }
+        })
+        .catch((error) => console.error('Error al obtener la ruta:', error));
     }
   }
 
@@ -144,48 +119,77 @@ export class HomePage implements OnInit, AfterViewInit {
         type: 'Feature',
         geometry: {
           type: 'LineString',
-          coordinates: route
+          coordinates: route,
         },
-        properties: {}
+        properties: {},
       };
+
+      this.map.addSource('route', {
+        type: 'geojson',
+        data: routeData,
+      });
 
       this.map.addLayer({
         id: 'route',
         type: 'line',
-        source: {
-          type: 'geojson',
-          data: routeData
+        source: 'route',
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
         },
         paint: {
-          'line-color': '#fffff',
-          'line-width': 5
-        }
-      });
-
-      const middlePoint = route[Math.floor(route.length / 2)];
-      this.map?.flyTo({
-        center: middlePoint,
-        zoom: 13,
-        speed: 1,
-        curve: 1
+          'line-color': '#0074D9',
+          'line-width': 4,
+        },
       });
     }
   }
 
   checkForStartButton() {
-    if (this.origin && this.destination) {
-      this.startTripVisible = true;
-    } else {
-      this.startTripVisible = false;
-    }
+    this.startTripVisible = !!(this.origin && this.destination);
   }
 
   startTrip() {
     if (this.origin && this.destination) {
-      alert("¡Viaje Iniciado!");
+      alert('¡Viaje iniciado! Ruta trazada.');
     } else {
-      alert("Debes seleccionar un origen y un destino.");
+      alert('Debes seleccionar un origen y un destino para iniciar el viaje.');
     }
+  }
+  search(event: any, type: string) {
+    const query = event.target.value;
+
+    if (!query) {
+      this.addresses = [];
+      return;
+    }
+
+    fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${this.mapboxToken}&autocomplete=true&limit=5`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        this.addresses = data.features.map((feature: any) => ({
+          text: feature.place_name,
+          coordinates: feature.geometry.coordinates,
+        }));
+      });
+  }
+
+  onSelect(address: any, type: string) {
+    const coordinates = new mapboxgl.LngLat(address.coordinates[0], address.coordinates[1]);
+
+    if (type === 'origin') {
+      this.setOrigin(coordinates);
+      const originSearch = document.querySelector('ion-searchbar[placeholder="Ingresa la dirección de origen"]') as HTMLIonSearchbarElement;
+      if (originSearch) originSearch.value = '';
+    } else if (type === 'destination') {
+      this.setDestination(coordinates);
+      const destinationSearch = document.querySelector('ion-searchbar[placeholder="Ingresa el destino"]') as HTMLIonSearchbarElement;
+      if (destinationSearch) destinationSearch.value = '';
+    }
+
+    this.addresses = [];
   }
 
   logout() {
@@ -195,22 +199,5 @@ export class HomePage implements OnInit, AfterViewInit {
 
   navigateTo(page: string) {
     this.router.navigate([page]);
-  }
-
-  search(event: any, type: string) {
-    const value = event.target.value;
-    if (type === 'origin') {
-      
-    } else if (type === 'destination') {
-      
-    }
-  }
-
-  onSelect(address: any, type: string) {
-    if (type === 'origin') {
-      this.setOrigin(address.coordinates);
-    } else if (type === 'destination') {
-      this.setDestination(address.coordinates);
-    }
   }
 }
