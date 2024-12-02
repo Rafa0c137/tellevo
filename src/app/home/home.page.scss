@@ -2,7 +2,39 @@ ion-card-header {
   text-align: center;
   
 }
+.search-bar {
+  padding: 10px;
+  z-index: 999; 
+}
 
+
+
+#main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.search-bar {
+  padding: 10px;
+  z-index: 999; 
+}
+
+.map-container {
+  flex-grow: 1;  
+  height: 80%;
+}
+
+ion-searchbar {
+  width: 100%; 
+  margin-bottom: 10px; 
+}
+
+#main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 .texto {
   font-size: 1.2rem;
 }

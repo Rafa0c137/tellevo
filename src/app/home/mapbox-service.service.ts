@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 export interface MapboxOutput {
   attribution: string;
   features: feature[];
-  query: any[]; // Especifica `any[]` si no tienes un tipo definido para los elementos de `query`
+  query: any[]; 
 }
 
 export interface feature {
