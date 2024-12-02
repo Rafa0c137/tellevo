@@ -31,7 +31,7 @@
 
 <ion-content id="main-content">
   <div class="search-bar">
-    <ion-searchbar (ionInput)="search($event, 'origin')" placeholder="Ingresa la dirección de origen"></ion-searchbar>
+    <ion-searchbar (ionInput)="search($event, 'origin')" placeholder="Ingresa el origen"></ion-searchbar>
     <div *ngIf="addresses.length > 0" style="position: absolute; width: 100%; z-index: 999;">
       <ion-list lines="none">
         <ion-item button *ngFor="let address of addresses" (click)="onSelect(address, 'origin')">
@@ -41,7 +41,7 @@
       </ion-list>
     </div>
 
-    <ion-searchbar (ionInput)="search($event, 'destination')" placeholder="Ingresa la dirección de destino"></ion-searchbar>
+    <ion-searchbar (ionInput)="search($event, 'destination')" placeholder="Ingresa el destino"></ion-searchbar>
     <div *ngIf="addresses.length > 0" style="position: absolute; width: 100%; z-index: 999;">
       <ion-list lines="none">
         <ion-item button *ngFor="let address of addresses" (click)="onSelect(address, 'destination')">
@@ -54,6 +54,5 @@
 
   <div id="map" class="map-container"></div>
 </ion-content>
-
-
+<ion-button *ngIf="startTripVisible" (click)="startTrip()">Iniciar Viaje</ion-button>
 
