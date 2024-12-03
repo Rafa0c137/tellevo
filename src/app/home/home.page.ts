@@ -79,9 +79,9 @@ export class HomePage implements OnInit, AfterViewInit {
         this.userMarker.setLngLat([longitude, latitude]);
       }
       if (!this.origin) {
-        this.setOrigin(new mapboxgl.LngLat(longitude, latitude)); // Convertimos a LngLat
+        this.setOrigin(new mapboxgl.LngLat(longitude, latitude)); 
       } else if (!this.destination) {
-        this.setDestination(new mapboxgl.LngLat(longitude, latitude)); // Convertimos a LngLat
+        this.setDestination(new mapboxgl.LngLat(longitude, latitude)); 
       }
     }).catch(error => {
       console.error("Error getting location", error);
@@ -166,9 +166,9 @@ export class HomePage implements OnInit, AfterViewInit {
 
   onSelect(address: any, type: string) {
     if (type === 'origin') {
-      this.setOrigin(new mapboxgl.LngLat(address.lng, address.lat)); // Convertimos a LngLat
+      this.setOrigin(new mapboxgl.LngLat(address.lng, address.lat));
     } else if (type === 'destination') {
-      this.setDestination(new mapboxgl.LngLat(address.lng, address.lat)); // Convertimos a LngLat
+      this.setDestination(new mapboxgl.LngLat(address.lng, address.lat)); 
     }
   }
 
@@ -180,22 +180,22 @@ export class HomePage implements OnInit, AfterViewInit {
     console.log("Cerrando sesión");
   }
 
-  // Aquí está la implementación del método getRoute
+
   getRoute() {
     if (this.origin && this.destination && this.map) {
       const origin = this.origin;
       const destination = this.destination;
 
-      // Crear la URL para la API de Mapbox Directions
+
       const routeUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?steps=true&geometries=geojson&access_token=${this.mapboxToken}`;
 
       fetch(routeUrl)
         .then(response => response.json())
         .then(data => {
-          // Obtener las coordenadas de la ruta
+          //coordenadas de la ruta
           const route = data.routes[0].geometry.coordinates;
 
-          // Llamar a la función para actualizar la ruta en el mapa
+          //la ruta en el mapa
           this.updateRoute(route);
         })
         .catch(error => {
@@ -207,7 +207,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   updateRoute(route: any) {
-    // Actualiza el mapa con la ruta obtenida
+    // Actualiza el mapa con la ruta 
     if (this.map) {
       const source = this.map.getSource('route') as mapboxgl.GeoJSONSource;
       if (source) {

@@ -30,16 +30,6 @@
 </ion-header>
 
 <ion-content id="main-content">
-  <div class="search-bar">
-    <ion-searchbar (ionInput)="search($event, 'origin')" placeholder="Ingresa el origen"></ion-searchbar>
-    <div *ngIf="addresses.length > 0" style="position: absolute; width: 100%; z-index: 999;">
-      <ion-list lines="none">
-        <ion-item button *ngFor="let address of addresses" (click)="onSelect(address, 'origin')">
-          <ion-icon name="pin" slot="start"></ion-icon>
-          {{ address }}
-        </ion-item>
-      </ion-list>
-    </div>
 
     <ion-searchbar (ionInput)="search($event, 'destination')" placeholder="Ingresa el destino"></ion-searchbar>
     <div *ngIf="addresses.length > 0" style="position: absolute; width: 100%; z-index: 999;">
@@ -49,10 +39,10 @@
           {{ address }}
         </ion-item>
       </ion-list>
-    </div>
   </div>
 
-  <div id="map" class="map-container"></div>
+  <div id="map" style="width: 100%; height: 100%;"></div>
+
 
   <!-- Botón de Ubicación Actual -->
   <div (click)="goToCurrentLocation()" class="location-btn">
