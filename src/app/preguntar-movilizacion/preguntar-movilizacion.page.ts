@@ -11,9 +11,9 @@ export class PreguntarMovilizacionPage {
 
   hasMovilizacion(hasVehicle: boolean) {
     if (hasVehicle) {
-      this.router.navigate(['/home']); // Redirige a ConMovilizacion si tiene vehículo
+      this.router.navigate(['/conmovilizacion']); // Redirige a ConMovilizacion si tiene vehículo
     } else {
-      this.router.navigate(['/sinmovilizacion']); // Redirige a SinMovilizacion si no tiene vehículo
+      this.router.navigate(['/home']); // Redirige a SinMovilizacion si no tiene vehículo
     }
   }
 }
