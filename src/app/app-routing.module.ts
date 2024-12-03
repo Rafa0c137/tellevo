@@ -11,6 +11,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'preguntar',
+    loadChildren: () => import('./preguntar-movilizacion/preguntar-movilizacion.module').then(m => m.PreguntarMovilizacionPageModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
@@ -39,6 +43,11 @@ const routes: Routes = [
     path: 'sinmovilizacion',
     loadChildren: () => import('./sinmovilizacion/sinmovilizacion.module').then( m => m.SinmovilizacionPageModule),canActivate:[AuthGuard]
   },
+  {
+    path: 'preguntar-movilizacion',
+    loadChildren: () => import('./preguntar-movilizacion/preguntar-movilizacion.module').then( m => m.PreguntarMovilizacionPageModule)
+  },
+
 
 ];
 

@@ -55,7 +55,7 @@ ngOnInit() {
       setTimeout(() => {
         alert.dismiss();
       }, 1000);
-      this.navCtrl.navigateRoot('/home');
+      this.navCtrl.navigateRoot('/preguntar');
     } else {
       const alert = await this.alertController.create({
         message: 'El Usuario o Contraseña son incorrectos',
