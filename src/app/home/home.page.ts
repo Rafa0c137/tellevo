@@ -19,10 +19,17 @@ export class HomePage implements OnInit, AfterViewInit {
   searchTimeout: any;
   mapboxToken: string = 'pk.eyJ1IjoiY3Jpc3RtIiwiYSI6ImNtNDI2YnJ6MzA2c3YyaXB0cnp0d2F4cTgifQ.W-CR0JFgvImO5GfvbecLCg';
   startTripVisible: boolean = false;
+  nombreUsuario: string = ''; // Esta propiedad almacenará el nombre del usuario
 
   constructor(private platform: Platform, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Recuperamos el nombre del usuario desde localStorage
+    const usuario = localStorage.getItem('nombre');
+    if (usuario) {
+      this.nombreUsuario = usuario; // Guardamos el nombre del usuario
+    }
+  }
 
   ngAfterViewInit() {
     this.loadMap();
@@ -79,9 +86,9 @@ export class HomePage implements OnInit, AfterViewInit {
         this.userMarker.setLngLat([longitude, latitude]);
       }
       if (!this.origin) {
-        this.setOrigin(new mapboxgl.LngLat(longitude, latitude)); 
+        this.setOrigin(new mapboxgl.LngLat(longitude, latitude)); // Convertimos a LngLat
       } else if (!this.destination) {
-        this.setDestination(new mapboxgl.LngLat(longitude, latitude)); 
+        this.setDestination(new mapboxgl.LngLat(longitude, latitude)); // Convertimos a LngLat
       }
     }).catch(error => {
       console.error("Error getting location", error);
@@ -166,9 +173,9 @@ export class HomePage implements OnInit, AfterViewInit {
 
   onSelect(address: any, type: string) {
     if (type === 'origin') {
-      this.setOrigin(new mapboxgl.LngLat(address.lng, address.lat));
+      this.setOrigin(new mapboxgl.LngLat(address.lng, address.lat)); // Convertimos a LngLat
     } else if (type === 'destination') {
-      this.setDestination(new mapboxgl.LngLat(address.lng, address.lat)); 
+      this.setDestination(new mapboxgl.LngLat(address.lng, address.lat)); // Convertimos a LngLat
     }
   }
 
@@ -180,22 +187,22 @@ export class HomePage implements OnInit, AfterViewInit {
     console.log("Cerrando sesión");
   }
 
-
+  // Aquí está la implementación del método getRoute
   getRoute() {
     if (this.origin && this.destination && this.map) {
       const origin = this.origin;
       const destination = this.destination;
 
-
+      // Crear la URL para la API de Mapbox Directions
       const routeUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?steps=true&geometries=geojson&access_token=${this.mapboxToken}`;
 
       fetch(routeUrl)
         .then(response => response.json())
         .then(data => {
-          //coordenadas de la ruta
+          // Obtener las coordenadas de la ruta
           const route = data.routes[0].geometry.coordinates;
 
-          //la ruta en el mapa
+          // Llamar a la función para actualizar la ruta en el mapa
           this.updateRoute(route);
         })
         .catch(error => {
@@ -207,7 +214,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   updateRoute(route: any) {
-    // Actualiza el mapa con la ruta 
+    // Actualiza el mapa con la ruta obtenida
     if (this.map) {
       const source = this.map.getSource('route') as mapboxgl.GeoJSONSource;
       if (source) {
@@ -237,8 +244,8 @@ export class HomePage implements OnInit, AfterViewInit {
           type: 'line',
           source: 'route',
           paint: {
-            'line-color': '#888',
-            'line-width': 6
+            'line-color': '#ff7e5f',
+            'line-width': 8
           }
         });
       }
