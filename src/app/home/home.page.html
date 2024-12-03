@@ -1,23 +1,26 @@
 <ion-menu side="start" menuId="first" contentId="main-content">
   <ion-header>
     <ion-toolbar color="dark">
-      <ion-title>Datos</ion-title>
+      <ion-title style="color: rgb(0, 0, 0)">Datos</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item button (click)="navigateTo('perfil')">
+      <ion-button (click)="navigateTo('perfil')">
         <ion-icon name="person-circle-outline" slot="start"></ion-icon>
         Perfil
-      </ion-item>
+      </ion-button>
     </ion-list>
+    <div class="separar-menu"></div>
     <ion-footer>
-      <ion-button expand="block" (click)="logout()">Cerrar Sesión</ion-button>
+      <ion-list>
+        <ion-button (click)="logout()">Cerrar Sesion</ion-button>
+      </ion-list>
     </ion-footer>
   </ion-content>
 </ion-menu>
 
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
@@ -26,29 +29,36 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="main-content" style="display: flex; flex-direction: column; height: 100vh;">
-  <ion-list *ngIf="addresses.length > 0" style="position: absolute; width: 100%; z-index: 999;">
-    <ion-item
-      button
-      *ngFor="let address of addresses"
-      (click)="onSelect(address, 'destination')"
-    >
-      <ion-icon name="pin" slot="start"></ion-icon>
-      {{ address.text }}
-    </ion-item>
-  </ion-list>
+<ion-content id="main-content">
+  <div class="search-bar">
+    <ion-searchbar (ionInput)="search($event, 'origin')" placeholder="Ingresa el origen"></ion-searchbar>
+    <div *ngIf="addresses.length > 0" style="position: absolute; width: 100%; z-index: 999;">
+      <ion-list lines="none">
+        <ion-item button *ngFor="let address of addresses" (click)="onSelect(address, 'origin')">
+          <ion-icon name="pin" slot="start"></ion-icon>
+          {{ address }}
+        </ion-item>
+      </ion-list>
+    </div>
 
-  <!-- Contenedor del mapa -->
-  <div id="map"></div>
+    <ion-searchbar (ionInput)="search($event, 'destination')" placeholder="Ingresa el destino"></ion-searchbar>
+    <div *ngIf="addresses.length > 0" style="position: absolute; width: 100%; z-index: 999;">
+      <ion-list lines="none">
+        <ion-item button *ngFor="let address of addresses" (click)="onSelect(address, 'destination')">
+          <ion-icon name="pin" slot="start"></ion-icon>
+          {{ address }}
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
 
-  <!-- Botón de iniciar viaje -->
-  <ion-button
-    *ngIf="startTripVisible"
-    (click)="startTrip()"
-    expand="full"
-    color="primary"
-    style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999;"
-  >
-    Iniciar Viaje
-  </ion-button>
+  <div id="map" class="map-container"></div>
+
+  <!-- Botón de Ubicación Actual -->
+  <div (click)="goToCurrentLocation()" class="location-btn">
+    <ion-icon name="location" size="large"></ion-icon>
+    <span class="location-text">Ubicación Actual</span>
+  </div>
+
 </ion-content>
+<ion-button *ngIf="startTripVisible" (click)="startTrip()">Iniciar Viaje</ion-button>

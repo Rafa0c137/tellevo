@@ -1,13 +1,17 @@
 ion-card-header {
   text-align: center;
-  
 }
+
 .search-bar {
   padding: 10px;
-  z-index: 999; 
+  z-index: 999;
 }
 
-
+#map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
 #main-content {
   display: flex;
@@ -15,17 +19,37 @@ ion-card-header {
   height: 100%;
 }
 
-.search-bar {
+.map-container {
+  flex-grow: 1;
+  height: 80%;
+}
+
+ion-searchbar {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.location-btn-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.location-btn {
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
-  z-index: 999; 
+  border-radius: 50%;
+  font-size: 24px;
+  color: #007bff;
+  cursor: pointer;
+  display: inline-block;
 }
 
-
-#main-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.location-btn-text {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #007bff;
 }
+
 .texto {
   font-size: 1.2rem;
 }
@@ -36,10 +60,10 @@ ion-card-header {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/assets/inicioimg.jpg'); 
+  background-image: url('/assets/inicioimg.jpg');
   background-size: cover;
   background-position: center;
-  z-index: -1; 
+  z-index: -1;
 }
 
 ion-content {
@@ -61,45 +85,15 @@ ion-content {
   --background: rgb(255, 255, 255);
   padding: 45px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 ion-button {
   width: 100%;
-  height: 50px; 
-  margin: 10px 0; 
+  height: 50px;
+  margin: 10px 0;
 }
 
 .centrado {
   text-align: center;
-}
-
-.search-bar {
-  position: absolute;
-  top: 10px;
-  width: 100%;
-  z-index: 10;
-}
-
-ion-list {
-  position: absolute;
-  top: 100%; /* Evita que se solape con la barra de búsqueda */
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  max-height: 300px; /* Limita la altura para evitar desbordes */
-  overflow-y: auto; /* Permite desplazamiento si hay muchas sugerencias */
-  z-index: 1000; /* Asegura que esté por encima del mapa */
-}
-
-ion-item {
-  cursor: pointer;
-}
-
-#map {
-  width: 100%;      /* Asegura que el mapa ocupe todo el ancho */
-  height: 100%;     /* Asegura que el mapa ocupe todo el alto */
-  position: absolute; /* Coloca el mapa encima de otros elementos */
-  top: 0;
-  left: 0;
 }
