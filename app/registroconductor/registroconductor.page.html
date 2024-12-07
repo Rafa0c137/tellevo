@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Registro de Conductor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="background-image">
+    <ion-card class="login-card">
+      <ion-card-header>
+        <ion-card-title class="custom-title">Registro de Datos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="formularioRegistro" (keyup.enter)="guardar()">
+          <ion-item>
+            <ion-label position="floating">Usuario</ion-label>
+            <ion-input formControlName="usuario"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Confirmar Contraseña</ion-label>
+            <ion-input formControlName="confirmacionPassword" type="password"></ion-input>
+          </ion-item>
+          <div class="button-container">
+            <ion-button class="custom-primary-button" (click)="guardar()">Registrarse</ion-button>
+            <ion-button class="custom-gray-button" fill="outline" (click)="irLogin()">Volver</ion-button>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
