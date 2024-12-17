@@ -5,15 +5,17 @@ import { Geolocation } from '@capacitor/geolocation';
 import { NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-loginconductor',
+  templateUrl: './loginconductor.page.html',
+  styleUrls: ['./loginconductor.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginconductorPage implements OnInit {
 
   formularioLogin: FormGroup;
   passwordType: string = 'password';  
   passwordIcon: string = 'eye-off';  
+  nombreUsuario: string = 'Usuario';  // Nombre del usuario
+  isLoginConductorPage: boolean = true;  // Se asegura de que el botón de "Inicio" solo aparezca en esta página
 
   constructor(
     public fb: FormBuilder, 
@@ -25,11 +27,13 @@ export class LoginPage implements OnInit {
       'contraseña': new FormControl("", Validators.required)  
     });
   }
-ngOnInit() { 
+
+  ngOnInit() { 
     this.requestPermissions();
+    this.nombreUsuario = localStorage.getItem('nombre') || 'Usuario'; // Asignar el nombre del usuario desde el almacenamiento local
   }
 
-  async requestPermissions(){
+  async requestPermissions() {
     const locPermission = await Geolocation.requestPermissions();
     console.log('Permisos de ubicación otorgados:', locPermission);
   }
@@ -44,18 +48,25 @@ ngOnInit() {
       });
       await alert.present();
       return;
-    }const storedUsuario = localStorage.getItem('usuario');
+    }
+
+    const storedUsuario = localStorage.getItem('usuario');
     const storedPassword = localStorage.getItem('password');
-   if (f.usuario === storedUsuario && f.contraseña === storedPassword) {
-      localStorage.setItem('nombre', f.usuario);
-  const alert = await this.alertController.create({
+    
+    if (f.usuario === storedUsuario && f.contraseña === storedPassword) {
+      localStorage.setItem('nombre', f.usuario); // Guardamos el nombre del usuario
+
+      const alert = await this.alertController.create({
         message: 'Bienvenido ' + f.usuario + '!',
       });
       await alert.present();
+      
       setTimeout(() => {
         alert.dismiss();
       }, 1000);
-      this.navCtrl.navigateRoot('/home');
+
+      // Redirigir a homeconductor
+      this.navCtrl.navigateRoot('/homeconductor');  // Aquí redirigimos a 'homeconductor'
     } else {
       const alert = await this.alertController.create({
         message: 'El Usuario o Contraseña son incorrectos',
@@ -73,5 +84,25 @@ ngOnInit() {
       this.passwordType = 'password';  
       this.passwordIcon = 'eye-off';   
     }
+  }
+
+  // Función para navegar a otras páginas
+  navigateTo(page: string) {
+    this.navCtrl.navigateForward(`/${page}`);
+  }
+
+  navigateToConductor() {
+    this.navCtrl.navigateForward('/conductor');
+  }
+
+  // Función para cerrar sesión
+  logout() {
+    localStorage.clear();  // Limpia el almacenamiento local
+    this.navCtrl.navigateRoot('/loginconductor');  // Redirige a la página de login
+  }
+
+  // Función para navegar al Home desde el side menu
+  goToHome() {
+    this.navCtrl.navigateRoot('/homeconductor');  // Redirige al homeconductor
   }
 }

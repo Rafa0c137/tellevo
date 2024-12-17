@@ -3,6 +3,7 @@ import { Platform } from '@ionic/angular';
 import * as mapboxgl from 'mapbox-gl';
 import { Geolocation } from '@capacitor/geolocation';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular'; // Agregar importación para controlar el menú
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,11 @@ export class HomePage implements OnInit, AfterViewInit {
   startTripVisible: boolean = false;
   nombreUsuario: string = ''; // Esta propiedad almacenará el nombre del usuario
 
-  constructor(private platform: Platform, private router: Router) {}
+  constructor(
+    private platform: Platform,
+    private router: Router,
+    private menuController: MenuController // Inyectar MenuController
+  ) {}
 
   ngOnInit() {
     // Recuperamos el nombre del usuario desde localStorage
@@ -179,12 +184,24 @@ export class HomePage implements OnInit, AfterViewInit {
     }
   }
 
+  // Método para navegar a una página específica
   navigateTo(page: string) {
-    this.router.navigate([`/${page}`]);
+    this.menuController.close(); // Cerrar el menú
+    this.router.navigate([`/${page}`]); // Navegar a la página correspondiente
+  }
+
+  // Método para navegar a la página del conductor
+  navigateToConductor() {
+    this.menuController.close(); // Cerrar el menú
+    this.router.navigate(['/loginconductor']); // Navegar a la página del conductor
   }
 
   logout() {
     console.log("Cerrando sesión");
+    // Limpiar el almacenamiento local y redirigir a la página de login
+    localStorage.clear();
+    this.menuController.close(); // Cerrar el menú
+    this.router.navigate(['/login']); // Navegar a la página de login
   }
 
   // Aquí está la implementación del método getRoute
